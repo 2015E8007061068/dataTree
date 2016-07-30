@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/dom4j/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/jsch/jsch-0.1.31.jar"/>
+	<classpathentry kind="lib" path="lib/o3po-0.9/c3p0-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/mysql/mysql-connector-java-5.1.31.jar"/>
+	<classpathentry kind="lib" path="lib/openstack/openstack4j-2.0.9-withdeps.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/test/openstack4j-xd.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/mybatis-3.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/ant-1.9.6.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/ant-launcher-1.9.6.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/asm-5.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/cglib-3.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/javassist-3.20.0-GA.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/log4j-api-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/log4j-core-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/ognl-3.1.8.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis/slf4j-log4j12-1.7.21.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
