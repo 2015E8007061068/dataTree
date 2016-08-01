@@ -59,10 +59,10 @@ public class Test1 {
 
 		// 创建容器下面的虚拟目录
 		//LogManager.getLogManager().reset();
-		//rSVeStudio.createfilepath("xd", "wo.txt","/xd");
+		//rSVeStudio.createfilepath("xd", "虚拟目录文件","/home/"+"beijing");
 		
 		//从一个容器拷贝到另外一个容器
-		rSVeStudio.copyObjectDuringContainers("xd", "workSoftware/RADiX_OODT-disk1.copy.vmdk", "xdcopy", "xd42");
+		rSVeStudio.copyObjectDuringContainers("home", "HJ1/sensor1/beijing/20150707/faaa", "xd", "sss","/home");
 	}
 
 }

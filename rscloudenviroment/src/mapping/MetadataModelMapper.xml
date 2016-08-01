@@ -21,4 +21,94 @@
     where filepath = #{filepath,jdbcType=VARCHAR}
   </select>
   
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+   
+  </select>
+  
+  <select id="selectByDate" resultMap="BaseResultMap" parameterType="java.sql.Date">
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where times = #{times,jdbcType=DATE}
+  </select>
+  
+  <select id="selectByRegion" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where region = #{region,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByStatellite" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where statellite = #{statellite,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByStatelliteAndSensor" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where statellite like #{statellite,jdbcType=VARCHAR} and sensor like #{sensor,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectBySTSR" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where statellite like #{statellite,jdbcType=VARCHAR} and sensor like #{sensor,jdbcType=VARCHAR} 
+    and times like #{times,jdbcType=DATE} and region like #{region,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByTimeAndRegion" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where times like #{times,jdbcType=DATE} and region like #{region,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByTimeAndStatellite" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where times like #{times,jdbcType=DATE} and statellite like #{statellite,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByRegionAndStatellite" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where region like #{region,jdbcType=VARCHAR} and statellite like #{statellite,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByTSR" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where region like #{region,jdbcType=VARCHAR} and statellite like #{statellite,jdbcType=VARCHAR} 
+    and times like #{times,jdbcType=DATE}
+  </select>
+  
+  <select id="selectByTSS" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where sensor like #{sensor,jdbcType=VARCHAR} and statellite like #{statellite,jdbcType=VARCHAR} 
+    and times like #{times,jdbcType=DATE}
+  </select>
+  
+  <select id="selectByRSS" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from basemetadata_table
+    where sensor like #{sensor,jdbcType=VARCHAR} and statellite like #{statellite,jdbcType=VARCHAR} 
+    and region like #{region,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
 </mapper>

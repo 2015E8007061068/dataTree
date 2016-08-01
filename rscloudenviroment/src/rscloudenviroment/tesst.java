@@ -32,9 +32,12 @@ public class tesst {
 		rSVeStudio.buildSwiftStorage("xd");
 		
 		//取出容器的原数据
+		String lizi = "/home/HJ1/sensor1/guangzhou/20150717/file";
+		String[] ll = lizi. split("\\/");
 		
-		
-		
+		for(int i =0;i<ll.length;i++){
+			System.out.println(ll[i]+"长度是"+i);
+		}
 		
 		
 		

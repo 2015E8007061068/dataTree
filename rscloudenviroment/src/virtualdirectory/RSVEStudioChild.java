@@ -116,7 +116,7 @@ public class RSVEStudioChild extends RSVEStudio {
 	}
 
 	/*
-	 * 创建swift虚拟目录(文件夹) 有问题不能使用
+	 * 创建swift虚拟目录(文件夹) 
 	 */
 	public void createfilepath(String containerName, String objectName,String filePath) {
 		System.out.println("RSVEStudio.createfilepath()");
@@ -132,7 +132,7 @@ public class RSVEStudioChild extends RSVEStudio {
 	 * 由一个容器向另一个容器拷贝对象
 	 */
 	public boolean copyObjectDuringContainers(String srContainerName,String srObjectName,
-			String desContainerName,String desObjectName){
+			String desContainerName,String desObjectName,String url){
 		System.out.println("RSVEStudioChild.copyObjectDuringContainers()");
 		SwiftAccount account = os.objectStorage().account().get();
 		
@@ -151,7 +151,7 @@ public class RSVEStudioChild extends RSVEStudio {
 				int objectNumber = containers.get(i).getObjectCount();
 				List<? extends SwiftObject> objects = os.objectStorage().objects().list(srContainerName);
 				for(int j = 0; j < objectNumber; j++){
-					System.out.println(objects.get(j).getName());
+					//System.out.println(objects.get(j).getName());
 					if(objects.get(j).getName().equals(srObjectName))
 						System.out.println("查到了该对象，对象ID为" + j);
 						isExitst = true;
@@ -192,7 +192,7 @@ public class RSVEStudioChild extends RSVEStudio {
 			
 			DLPayload download = os.objectStorage().objects().download(srContainerName, srObjectName);
 			os.objectStorage().objects().put(desContainerName, desObjectName, 
-					Payloads.create(download.getInputStream()));
+					Payloads.create(download.getInputStream()),ObjectPutOptions.create().path(url));
 			
 		}
 		return true;
