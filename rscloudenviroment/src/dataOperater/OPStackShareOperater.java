@@ -57,10 +57,16 @@ public class OPStackShareOperater {
 		//得到地址的种类
 		List<MetadataModel> list = metadataModelMapper.selectAll();
 		List<String> sources1 = new ArrayList<String>();
+		List<String> sources2 = new ArrayList<String>();
+		List<String> sources3 = new ArrayList<String>();
+		
 		for(int i =0;i<list.size();i++){
 			sources1.add(list.get(i).getRegion());
+			sources2.add(list.get(i).getStatellite());
+			//sources3.add(list.get(i).getDate());
 		}
 		 regions= operaterTools.removeDuplicateWithOrder(sources1);
+		 satellites=operaterTools.removeDuplicateWithOrder(sources2);
 		
 		 System.out.println("xxxxxxxxxxx----"+regions.get(1));
 		
@@ -102,12 +108,30 @@ public class OPStackShareOperater {
 				for(int j =0;j<list1.size();j++){
 					String filePath = list1.get(j).getFileUrl();
 					System.out.println(filePath);
-					String[] mulu = filePath.split("\\/");
-					int length = mulu.length;
+	
 					String filename = filePath.split("\\/", 2)[1]; //去掉路径前面的一个/
 					System.out.println(filename);
 					rSVeStudio.copyObjectDuringContainers("home", filePath.split("\\/", 2)[1], name, "xxx"+j,"/home/"+regions.get(i));
 				}
+			}
+		}
+		//按卫星分
+		if(Type.equals(satelliteType)){
+			
+			for(int i=0;i<satellites.size();i++){
+			//建立第一级虚拟目录
+			rSVeStudio.createfilepath(name, "虚拟目录文件", "/home/"+satellites.get(i));
+			//将存储中的文件拷贝到目标文件夹中
+			List<MetadataModel> list2=metadataModelMapper.selectByStatellite(satellites.get(i));
+			for(int j =0;j<list2.size();j++){
+				String filePath = list2.get(j).getFileUrl();
+				System.out.println(filePath);
+				
+				
+				String filename = filePath.split("\\/", 2)[1]; //去掉路径前面的一个/
+				System.out.println(filename);
+				rSVeStudio.copyObjectDuringContainers("home", filePath.split("\\/", 2)[1], name, "xxx"+j,"/home/"+satellites.get(i));
+			}
 			}
 		}
 	}
