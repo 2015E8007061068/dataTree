@@ -123,7 +123,7 @@ public class Test {
 //		}
 //	 	
 	 	OPStackShareOperater opStackShareOperater = new OPStackShareOperater();
-	 	opStackShareOperater.generateOneD("xd", "region");
+	 	opStackShareOperater.generateTwoD("te1", "region","satellite");
 	}
 
 }

@@ -62,7 +62,9 @@ public class Test1 {
 		//rSVeStudio.createfilepath("xd", "虚拟目录文件","/home/"+"beijing");
 		
 		//从一个容器拷贝到另外一个容器
-		rSVeStudio.copyObjectDuringContainers("home", "HJ1/sensor1/beijing/20150707/faaa", "xd", "sss","/home");
+		//rSVeStudio.copyObjectDuringContainers("home", "HJ1/sensor1/beijing/20150707/faaa", "xd", "sss","/home");
+		rSVeStudio.copyObjectDuringContainers("home", "home/HJ1/sensor3/beijing/20150713/file2", "te1", "xxx" + 1,
+				"/home/" + "2015-07-13"+"/"+"HJ1");
 	}
 
 }

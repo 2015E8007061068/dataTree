@@ -116,31 +116,48 @@ public class RSVEStudioChild extends RSVEStudio {
 	}
 
 	/*
-	 * 创建swift虚拟目录(文件夹) 
+	 * 创建swift虚拟目录(文件夹)
 	 */
-	public void createfilepath(String containerName, String objectName,String filePath) {
+	public void createfilepath(String containerName, String objectName, String filePath) {
 		System.out.println("RSVEStudio.createfilepath()");
-		//os.objectStorage().containers().createPath(StorageName, filePath);
-		String fileName="D:"+File.separator+"test.txt";
+		// os.objectStorage().containers().createPath(StorageName, filePath);
+		String fileName = "D:" + File.separator + "test.txt";
 		File file = new File(fileName);
-		Apis.get(ObjectStorageObjectService.class).put(containerName, objectName, 
-				Payloads.create(file),ObjectPutOptions.create().path(filePath));
+		Apis.get(ObjectStorageObjectService.class).put(containerName, objectName, Payloads.create(file),
+				ObjectPutOptions.create().path(filePath));
 
+	}
+
+	/*
+	 * 检查容器名字是否存在
+	 */
+	public boolean isContainerName(String name) {
+
+		boolean isExitst = false;
+		SwiftAccount account = os.objectStorage().account().get();
+		int SwiftNum = (int) account.getContainerCount();
+		List<? extends SwiftContainer> containers = os.objectStorage().containers().list();
+		for (int i = 0; i < SwiftNum; i++) {
+			if (containers.get(i).getName().equals(name)) {
+				isExitst = true;
+			}
+		}
+
+		return isExitst;
 	}
 
 	/*
 	 * 由一个容器向另一个容器拷贝对象
 	 */
-	public boolean copyObjectDuringContainers(String srContainerName,String srObjectName,
-			String desContainerName,String desObjectName,String url){
+	public boolean copyObjectDuringContainers(String srContainerName, String srObjectName, String desContainerName,
+			String desObjectName, String url) {
 		System.out.println("RSVEStudioChild.copyObjectDuringContainers()");
 		SwiftAccount account = os.objectStorage().account().get();
-		
+
 		ObjectLocation srcLocation = ObjectLocation.create(srContainerName, srObjectName);
 		ObjectLocation destLocation = ObjectLocation.create(desContainerName, desObjectName);
-		
-		
-		// 源文件非空判断    当数据量特别大的时候这里的效率可能会比较低？
+
+		// 源文件非空判断 当数据量特别大的时候这里的效率可能会比较低？
 		boolean isExitst = false;
 		int SwiftNum = (int) account.getContainerCount();
 		List<? extends SwiftContainer> containers = os.objectStorage().containers().list();
@@ -150,20 +167,20 @@ public class RSVEStudioChild extends RSVEStudio {
 				System.out.println("查到了该容器，容器ID为" + i);
 				int objectNumber = containers.get(i).getObjectCount();
 				List<? extends SwiftObject> objects = os.objectStorage().objects().list(srContainerName);
-				for(int j = 0; j < objectNumber; j++){
-					//System.out.println(objects.get(j).getName());
-					if(objects.get(j).getName().equals(srObjectName))
+				for (int j = 0; j < objectNumber; j++) {
+					// System.out.println(objects.get(j).getName());
+					if (objects.get(j).getName().equals(srObjectName))
 						System.out.println("查到了该对象，对象ID为" + j);
-						isExitst = true;
+					isExitst = true;
 				}
-				
+
 			}
 		}
 
 		if (isExitst == false) {
 			System.out.println("该容器或对象不存在，请检查输入名");
 		}
-		
+
 		// 目标文件存在判断
 		boolean isExitst1 = true;
 		for (int i = 0; i < SwiftNum; i++) {
@@ -172,28 +189,29 @@ public class RSVEStudioChild extends RSVEStudio {
 				System.out.println("查到了该容器，容器ID为" + i);
 				int objectNumber = containers.get(i).getObjectCount();
 				List<? extends SwiftObject> objects = os.objectStorage().objects().list(desContainerName);
-				for(int j = 0; j < objectNumber; j++){
-					if(objects.get(j).getName().equals(srObjectName))
-						System.out.println("该对象在目标容器中已存在，对象ID为" + j+"请重新定义一个对象名称");
-						isExitst1 = false;
-						}
+				for (int j = 0; j < objectNumber; j++) {
+					if (objects.get(j).getName().equals(srObjectName))
+						System.out.println("该对象在目标容器中已存在，对象ID为" + j + "请重新定义一个对象名称");
+					isExitst1 = false;
 				}
+			}
 		}
 
 		// copy 操作
-		if((isExitst==true)&&(isExitst1==false)){
+		if ((isExitst == true) && (isExitst1 == false)) {
 			System.out.println("该对象在目标容器中不存在");
-			System.out.println("原地址url"+srcLocation.getURI()+"目的地址url"+destLocation.getURI());
-//			HttpResponse resp = put(Void.class, destLocation.getURI())
-//                    .header(X_COPY_FROM, srcLocation.getURI())
-//                    .header(CONTENT_LENGTH, 0)
-//                    .executeWithResponse();
-			//System.out.println(os.objectStorage().objects().copy(srcLocation, destLocation));
-			
+			System.out.println("原地址url" + srcLocation.getURI() + "目的地址url" + destLocation.getURI());
+			// HttpResponse resp = put(Void.class, destLocation.getURI())
+			// .header(X_COPY_FROM, srcLocation.getURI())
+			// .header(CONTENT_LENGTH, 0)
+			// .executeWithResponse();
+			// System.out.println(os.objectStorage().objects().copy(srcLocation,
+			// destLocation));
+
 			DLPayload download = os.objectStorage().objects().download(srContainerName, srObjectName);
-			os.objectStorage().objects().put(desContainerName, desObjectName, 
-					Payloads.create(download.getInputStream()),ObjectPutOptions.create().path(url));
-			
+			os.objectStorage().objects().put(desContainerName, desObjectName,
+					Payloads.create(download.getInputStream()), ObjectPutOptions.create().path(url));
+
 		}
 		return true;
 	}

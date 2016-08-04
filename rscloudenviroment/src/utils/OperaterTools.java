@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class OperaterTools {
+public class OperaterTools<E> {
 
 	public void OperaterTools(){
 		
 	}
 	
 	
-	public List<String> removeDuplicateWithOrder (List<String> sources){
+	public List<E> removeDuplicateWithOrder (List<E> sources){
 		
-		List<String> reslut = new ArrayList<String>();
+		List<E> reslut = new ArrayList<E>();
 		 
-		for(String s: sources){
+		for(E s: sources){
 		    if(Collections.frequency(reslut, s) < 1) reslut.add(s);
 		}
 		return reslut;
